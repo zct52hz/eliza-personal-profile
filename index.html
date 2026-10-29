@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="张宸桐的个人作品集：运营策略、行业生态研究、标准制定与 AI 赋能。" />
+  <title>张宸桐｜运营策略 × 行业生态调研 × AI 体系建设</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== 全局主题 ===== */
+    :root {
+      --bg: #f8f7f3;
+      --paper: rgba(255, 255, 255, 0.85);
+      --ink: #1a1a18;
+      --muted: #6e6c65;
+      --line: rgba(0, 0, 0, 0.08);
+      --accent: #2868d7; 
+      --accent-soft: #edf3ff;
+      --radius: 24px;
+      --max-width: 1180px;
+      --shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 24px 48px rgba(40, 104, 215, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 85% 15%, rgba(200, 215, 255, 0.4), transparent 40%),
+        radial-gradient(ellipse at 15% 65%, rgba(240, 230, 210, 0.5), transparent 40%),
+        var(--bg);
+      background-attachment: fixed;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, video { display: block; max-width: 100%; }
+    
+    .container { width: min(var(--max-width), calc(100% - 48px)); margin: 0 auto; }
+    .section { padding: 110px 0 30px; }
+    
+    .eyebrow {
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.18em;
+      font-size: 11px; font-weight: 700; margin-bottom: 16px;
+    }
+    .section-heading {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 24px; margin-bottom: 36px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h2 { font-size: clamp(30px, 4.5vw, 44px); letter-spacing: -0.03em; line-height: 1.25; margin-bottom: 12px; font-weight: 800;}
+    h3 { letter-spacing: -0.02em; line-height: 1.4; font-weight: 700;}
+    .section-intro { color: var(--muted); max-width: 650px; font-size: 15px; margin: 0; }
+    .muted { color: var(--muted); }
+    
+    /* 经历描述中的重点仅加粗，不使用彩色文字或底纹 */
+    .hl {
+      color: inherit;
+      font-weight: 800;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      border-bottom: none;
+      white-space: normal;
+    }
+
+    .pill {
+      display: inline-flex; align-items: center; border: 1px solid var(--line);
+      padding: 6px 12px; border-radius: 999px; font-size: 12px; color: #4a4944;
+      background: rgba(255,255,255,0.6); margin: 4px 6px 4px 0;
+      transition: all 0.2s;
+    }
+    .pill:hover { background: #fff; border-color: rgba(0,0,0,0.15); transform: translateY(-1px); }
+    .pill-highlight { background: var(--accent-soft); color: var(--accent); border-color: rgba(40,104,215,0.22); font-weight: 600; }
+    .pill-gold { background: rgba(255,255,255,0.7); color: var(--ink); border-color: var(--line); font-weight: 700; }
+    .pill-silver { background: rgba(255,255,255,0.7); color: var(--ink); border-color: var(--line); font-weight: 700; }
+
+    /* 课程与荣誉加粗加黑处理 */
+    .course-list .pill, .honor-list .pill { font-weight: 800; color: #000; border-color: rgba(0,0,0,0.15); }
+
+    /* 高级卡片质感 */
+    .card {
+      background: var(--paper); border: 1px solid rgba(255,255,255,0.9);
+      border-radius: var(--radius); box-shadow: var(--shadow);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover {
+      transform: translateY(-8px); box-shadow: var(--shadow-hover);
+      background: rgba(255,255,255,0.95); border-color: #fff;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border-radius: 999px; padding: 12px 20px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--line); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    .btn-primary { background: var(--ink); color: white; border-color: var(--ink); }
+    .btn-light { background: rgba(255,255,255,0.8); }
+    
+    .card-list { margin: 0; padding-left: 20px; font-size: 13px; color: #555; }
+    .card-list li { margin-bottom: 10px; line-height: 1.6; }
+
+    /* ===== 顶部导航 ===== */
+    .nav-wrap { position: sticky; top: 0; z-index: 50; padding: 16px 0; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 10px 16px 10px 22px; border: 1px solid rgba(255,255,255,0.85);
+      border-radius: 999px; background: rgba(255,255,255,0.7); box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .brand { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; white-space: nowrap; }
+    .nav-links { display: flex; gap: 26px; align-items: center; font-size: 12px; font-weight: 500; color: #555; }
+    .nav-links a:hover { color: var(--accent); transition: color 0.2s; }
+
+    /* ===== 首屏 ===== */
+    .hero { padding: 80px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 70px; align-items: center; }
+    .availability {
+      display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.7); border-radius: 999px; padding: 8px 14px;
+      font-size: 12px; font-weight: 500; color: #555; margin-bottom: 28px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 4px rgba(52,211,153,0.2); }
+    .hero h1 { font-size: clamp(50px, 7.5vw, 86px); letter-spacing: -0.04em; line-height: 1; margin: 0 0 24px; font-weight: 800;}
+    .hero-title { font-size: clamp(18px, 2.2vw, 24px); font-weight: 600; max-width: 600px; line-height: 1.5; margin-bottom: 16px; color: var(--ink);}
+    .hero-copy { color: var(--muted); font-size: 15px; max-width: 600px; margin-bottom: 30px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+    .profile-panel { padding: 16px; transform: rotate(1.5deg); transition: transform 0.4s; }
+    .profile-panel:hover { transform: rotate(0deg) translateY(-8px); }
+    .profile-photo {
+      height: 380px; border-radius: 18px; overflow: hidden; background: linear-gradient(145deg, #e7e5de, #f9f7f1 50%, #d8dfeb);
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .profile-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-meta { display: flex; justify-content: space-between; gap: 12px; padding: 16px 6px 4px; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em;}
+    .profile-note { margin-top: 16px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; }
+    .note-icon { background: var(--accent-soft); color: var(--accent); border-radius: 14px; width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 auto; font-weight: 800; font-size: 14px;}
+    .profile-note strong { font-size: 13px; display: block; margin-bottom: 4px; }
+    .profile-note p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5;}
+
+    /* ===== 教育经历 ===== */
+    .education-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 20px; }
+    .edu-card { padding: 32px; }
+    .card-kicker { font-size: 10px; letter-spacing: 0.15em; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 8px;}
+    .edu-title-row { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    .edu-title-row h3 { margin: 0 0 6px; font-size: 24px; }
+    .date-chip { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-weight: 600; font-size: 11px; color: var(--ink); }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
+    .stat { padding: 16px; border-radius: 16px; background: rgba(255,255,255,0.5); border: 1px solid var(--line); transition: background 0.3s; }
+    .stat:hover { background: #fff; }
+    .stat strong { display: block; font-size: 28px; letter-spacing: -0.03em; font-family: 'Inter', system-ui, sans-serif !important; font-weight: 800 !important; color: var(--ink); margin-bottom: 2px;}
+    .stat span { font-size: 11px; color: var(--muted); font-weight: 500;}
+
+    /* ===== 通用网格与卡片 ===== */
+    .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .two-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .experience-card { padding: 28px; display: flex; flex-direction: column; }
+    .experience-card .label { color: var(--accent); background: var(--accent-soft); border-radius: 8px; padding: 6px 10px; font-size: 11px; width: fit-content; margin-bottom: 20px; font-weight: 700; letter-spacing: 0.05em;}
+    .experience-card h3 { font-size: 22px; margin: 0 0 8px; }
+    .experience-card .org { color: var(--muted); font-size: 13px; margin-bottom: 18px; font-weight: 500; display: flex; align-items: center; gap: 8px;}
+    .experience-card .org strong { color: #000; font-weight: 800; font-size: 14px; }
+    .experience-card .org::before { content: ""; display: block; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+
+    /* ===== 竞赛经历：独立气泡卡片，重点内容仅加粗 ===== */
+    .competition-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+    .competition-column { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+    .competition-column .competition-item { min-height: 0; }
+    .competition-item {
+      min-width: 0; min-height: 190px; padding: 24px; border-radius: var(--radius);
+      background: var(--competition-bg, rgba(255,255,255,0.82));
+      border: 1px solid rgba(255,255,255,0.95);
+      box-shadow: var(--shadow); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .competition-item:nth-child(1) { --competition-bg: #edf4ff; }
+    .competition-item:nth-child(2) { --competition-bg: #f1f7ed; }
+    .competition-item:nth-child(3) { --competition-bg: #fff4e8; }
+    .competition-item:nth-child(4) { --competition-bg: #f4effb; }
+    .competition-item:nth-child(5) { --competition-bg: #eaf7f5; }
+    .competition-item:nth-child(6) { --competition-bg: #fff0f0; }
+    .competition-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: rgba(40,104,215,.22); }
+    .competition-award { display: inline-flex; align-items: center; width: fit-content; max-width: 100%; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.82); border: 1px solid rgba(0,0,0,0.045); color: var(--accent); font-size: 12px; font-weight: 800; line-height: 1.45; }
+    .competition-name { font-size: 17px; font-weight: 800; line-height: 1.45; color: var(--ink); }
+    .competition-item p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .competition-item p strong { color: var(--ink); font-weight: 800; }
+    .competition-detail { padding-top: 10px; border-top: 1px solid var(--line); width: 100%; }
+    @media (max-width: 700px) { .competition-list { grid-template-columns: 1fr; gap: 18px; } }
+
+    /* ===== 可视化项目作品 (视频替换图片) ===== */
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .project-card { overflow: hidden; display: flex; flex-direction: column; padding: 0;}
+    .project-gallery {
+      display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; 
+      aspect-ratio: 16 / 9; max-height: 400px;
+      background: #000; scrollbar-width: none; position: relative;
+    }
+    .project-gallery::-webkit-scrollbar { display: none; }
+    .project-gallery video { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; scroll-snap-align: start; }
+    .project-single-video { 
+      aspect-ratio: 16 / 9; max-height: 400px; 
+      background: #000; position: relative; 
+    }
+    .project-single-video video { width: 100%; height: 100%; object-fit: contain; }
+    
+    .scroll-hint {
+      position: absolute; right: 12px; top: 12px; z-index: 10;
+      background: rgba(0,0,0,0.5); color: white; border-radius: 12px;
+      padding: 4px 10px; font-size: 10px; backdrop-filter: blur(4px);
+      pointer-events: none; letter-spacing: 0.05em; font-weight: 600;
+    }
+    
+    .project-body { padding: 26px; flex-grow: 1; display: flex; flex-direction: column; }
+    .project-type { font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; font-weight: 700;}
+    .project-body h3 { font-size: 22px; margin: 0 0 12px; }
+    .project-body p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.65;}
+
+    /* ===== 研究论文彩色框排版 ===== */
+    .paper-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .paper-box { padding: 24px; border-radius: var(--radius); color: #fff; display: flex; flex-direction: column; justify-content: flex-start; box-shadow: var(--shadow); transition: transform 0.2s; }
+    .paper-box:hover { transform: translateY(-3px); }
+    .paper-box h3 { font-size: 17px; margin: 0 0 10px; line-height: 1.4; color: #fff; }
+    .paper-box .journal { font-size: 11px; font-weight: 700; opacity: 0.85; margin-bottom: 12px; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
+    .paper-box p { font-size: 12px; opacity: 0.95; margin: 0; line-height: 1.6; }
+    .paper-box-1 { background: linear-gradient(145deg, #2b5c46, #417b60); }
+    .paper-box-2 { background: linear-gradient(145deg, #1b4b73, #3574a3); }
+    .paper-box-3 { background: linear-gradient(145deg, #814631, #a35d45); }
+
+    /* ===== 工作与学习之外：5宫格 BENTO 布局 ===== */
+    .life-grid-5 { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 240px 240px; gap: 16px; }
+    .life-item { position: relative; overflow: hidden; border-radius: var(--radius); background: #e0e0e0; transition: transform 0.4s; }
+    .life-item:hover { transform: scale(0.98); }
+    .life-item img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 1; transition: transform 0.6s;}
+    .life-item:hover img { transform: scale(1.05); }
+    .life-item::after { content: ""; position: absolute; inset: 30% 0 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); pointer-events: none; z-index: 2; }
+    .life-caption { position: absolute; z-index: 3; left: 24px; right: 24px; bottom: 24px; color: #ffffff; font-size: 15px; font-weight: 700; letter-spacing: 0.03em; text-shadow: 0 4px 12px rgba(0,0,0,0.6); line-height: 1.4; }
+    .life-large { grid-column: span 2; grid-row: span 2; }
+    .life-small-1, .life-small-2, .life-small-3, .life-small-4 { grid-column: span 1; grid-row: span 1; }
+
+    footer { padding: 60px 0 40px; color: var(--muted); font-size: 12px; }
+    .footer-row { display: flex; justify-content: space-between; gap: 15px; border-top: 1px solid var(--line); padding-top: 24px; }
+
+    /* ===== 入场动画类 ===== */
+    .animate-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .animate-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-grid, .education-grid { grid-template-columns: 1fr; gap: 40px;}
+      .profile-panel { max-width: 440px; width: 100%; margin: 0 auto; transform: none;}
+      .three-grid, .two-grid, .paper-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-grid { grid-template-columns: 1fr; }
+      .life-grid-5 { grid-template-columns: repeat(2, 1fr); grid-template-rows: 240px 200px 200px; }
+      .life-large { grid-column: span 2; grid-row: span 1; }
+    }
+    @media (max-width: 600px) {
+      .container { width: min(100% - 32px, var(--max-width)); }
+      .section { padding-top: 80px; }
+      .hero h1 { font-size: 48px; }
+      .three-grid, .two-grid, .paper-grid, .stats { grid-template-columns: 1fr; }
+      .life-grid-5 { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .life-large, .life-small-1, .life-small-2, .life-small-3, .life-small-4 { grid-column: span 1; grid-row: span 1; height: 220px; }
+      .edu-title-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <div class="nav-wrap">
+    <nav class="nav container" aria-label="主导航">
+      <a class="brand" href="#top">CT. / PORTFOLIO</a>
+      <div class="nav-links">
+        <a href="#about">关于我</a>
+        <a href="#education">教育经历</a>
+        <a href="#experience">实习经历</a>
+        <a href="#research-work">生态调研与标准构建</a>
+        <a href="#visual-projects">AI 产品实战</a>
+        <a href="#competitions">竞赛与拓展</a>
+        <a href="#research">学术成果</a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="top">
+    <!-- 首屏 -->
+    <section class="hero container animate-up" id="about">
+      <div class="hero-grid">
+        <div>
+          <div class="availability"><span class="dot"></span> 运营策略 · 商业分析 · AI 体系建设</div>
+          <h1>张宸桐<span style="color:var(--accent)">.</span></h1>
+          <p class="hero-title">将主观的业务逻辑，拆解为客观可执行的标准与策略。</p>
+          <p class="hero-copy">
+            深圳大学金融科技专业本科生。具备扎实的财务与行业尽调能力，擅长梳理行业生态图谱与专家网络资源。
+            同时拥有前沿的 AI Agent 落地经验，致力于通过大模型评判逻辑，制定数据质量与准入标准，提升团队运营与研究效率。
+          </p>
+          <div class="hero-actions">
+            <span class="btn btn-light" style="cursor:default;">手机/微信号：15632420665</span>
+            <span class="btn btn-light" style="cursor:default;">邮箱：2023290242@email.szu.edu.cn</span>
+            <a class="btn btn-primary" href="#experience">查看相关经历 ↘</a>
+            <a class="btn btn-light" href="assets/resume.pdf" target="_blank" rel="noopener">查看简历 PDF ↗</a>
+          </div>
+          <div class="hero-tags">
+            <span class="pill">运营策略</span><span class="pill">标准与规则制定</span>
+            <span class="pill">外部资源对接</span><span class="pill">大模型评估体系</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="profile-panel card">
+            <div class="profile-photo">
+              <img src="assets/profile.jpg" alt="张宸桐个人照片" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+              <div class="photo-placeholder" style="display:none">
+                <strong>个人照片位置</strong><br />将照片放入 assets/profile.jpg
+              </div>
+            </div>
+            <div class="profile-meta"><span>STRATEGY / ECOSYSTEM / AI</span><span>深圳 · 中国</span></div>
+          </div>
+          <div class="profile-note card animate-up delay-1">
+            <div class="note-icon">AI</div>
+            <div><strong>体系化构建能力</strong><p>规则拆解 · 生态图谱 · AI Agent 赋能</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教育经历 -->
+    <section class="section container animate-up" id="education">
+      <div class="section-heading">
+        <div><div class="eyebrow">01 / Education</div><h2>教育经历与能力底座</h2><p class="section-intro">扎实的金融复合专业背景，丰富的校企合作与组织对接经验。</p></div>
+      </div>
+      <div class="education-grid">
+        <div class="edu-card card">
+          <div class="edu-title-row">
+            <div>
+              <div class="card-kicker">Undergraduate</div>
+              <h3>深圳大学</h3>
+              <div class="muted" style="font-size:13px; margin-top:4px;">
+                金融科技学院 · 金融科技专业<br>
+                <span style="color:var(--ink); font-weight:700; display:inline-block; margin-top:6px;">保研至：中山大学岭南学院金融专硕</span>
+              </div>
+            </div>
+            <span class="date-chip">2023 — 2027</span>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>第一</strong><span>连续三年专业排名</span></div>
+            <div class="stat"><strong>4.23/4.5</strong><span>本科 GPA</span></div>
+          </div>
+          <div style="margin-top: 24px;" class="honor-list">
+            <h4 style="font-size: 11px; color: var(--muted); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.1em;">重点校园经历与荣誉</h4>
+            <ul class="card-list" style="margin-bottom: 12px;">
+              <li><strong>创业者联盟部长：</strong>负责校企合作事项，具备较强的外部机构对接与资源开拓能力。</li>
+              <li><strong>院辩论队长：</strong>多次主持学院活动与学术会议协办，逻辑拆解与表达沟通能力突出。</li>
+            </ul>
+            <span class="pill">国家奖学金</span>
+            <span class="pill">“荔园之星” （深大最高级别校奖）</span>
+            <span class="pill">“学习之星”奖学金</span>
+            <span class="pill">“公益之星”奖学金</span>
+            <span class="pill">“双创之星”奖学金</span>
+          </div>
+        </div>
+
+        <div class="edu-card card">
+          <div class="card-kicker">Selected Coursework</div>
+          <h3 style="margin:8px 0 8px">核心课程结构</h3>
+          <p class="muted" style="font-size:13px; margin-bottom: 20px;">涵盖金融业务理解、行业战略发展研究与数据技术方法体系。</p>
+          <div class="course-list">
+            <span class="pill">行业发展研究</span><span class="pill">投资管理</span><span class="pill">金融风险管理</span>
+            <span class="pill">金融工程</span><span class="pill">公司金融</span>
+            <span class="pill">金融科技导论</span>
+            <span class="pill">人工智能与机器学习</span><span class="pill">云计算与大数据分析</span>
+            <span class="pill">数据建模</span><span class="pill">数据库系统</span>
+            <span class="pill">数据可视化</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 实习经历 -->
+    <section class="section container animate-up" id="experience">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">02 / Experience</div>
+          <h2>将复杂的商业风险与主观认知<br />拆解为“可核查”的执行标准</h2>
+          <p class="section-intro">具备扎实的尽职调查、生态图谱调研以及大模型评估体系搭建实战经验。</p>
+        </div>
+      </div>
+      <div class="two-grid" style="margin-bottom: 24px;">
+        <article class="experience-card card animate-up delay-1">
+          <span class="label">AI Product & Standard Setup</span>
+          <h3>微众银行</h3><div class="org" style="font-weight: 800; color: var(--ink);">AI金融产品经理 <span style="font-weight: 500; color: var(--muted);">· 2026.03 — 2026.05</span></div>
+          <ul class="card-list">
+            <li>参与AI原生金融App迭代，围绕 LLM+Agent开展需求分析、流程设计及 PRD 撰写，推动创新功能落地。</li>
+            <li>重构交易查询引擎，梳理非标数据核验口径，将 <span class="hl">主观的意图识别拆解为可核查、可执行的动态标签标准</span>。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-2">
+          <span class="label">Due Diligence & Ecosystem</span>
+          <h3>民生证券</h3><div class="org" style="font-weight: 800; color: var(--ink);">投行部业务部实习生 <span style="font-weight: 500; color: var(--muted);">· 2025.08 — 2025.09</span></div>
+          <ul class="card-list">
+            <li>参与上市公司再融资项目，进行尽职调查并撰写报告与投资建议，全面梳理企业的 <span class="hl">经营生态、上下游产业链分布及核心关键人</span>。</li>
+            <li>核验相关资质与合规评估标准，将商业风险 <span class="hl">拆解为可核查依据</span>，统筹合同审查与底稿归档。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="three-grid">
+        <article class="experience-card card animate-up delay-1">
+          <span class="label">FinTech & R&D</span>
+          <h3>东亚银行</h3><div class="org" style="font-weight: 800; color: var(--ink);">金融科技研发工程师 <span style="font-weight: 500; color: var(--muted);">· 2025.10 — 2025.12</span></div>
+          <ul class="card-list">
+            <li>主导智能资金预测模型，拆解收入场景预测指标与业务逻辑，完成 <span class="hl">从需求分析到产品交付</span> 的完整闭环。</li>
+            <li>基于 Python + XGBoost 构建，13轮特征工程与参数调优，准确率达90%，给东亚增加4亿存款。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-2">
+          <span class="label">Data Analytics</span>
+          <h3>创鸿昇科技实业（深圳）有限公司</h3><div class="org" style="font-weight: 800; color: var(--ink);">股票数据分析师 <span style="font-weight: 500; color: var(--muted);">· 2025.03 — 2025.06</span></div>
+          <ul class="card-list">
+            <li>基于 MySQL 搭建数据处理流程，完成数据清洗、特征提取与分析。</li>
+            <li>累计处理 <span class="hl">500万+条</span> 金融数据，沉淀出高效的数据管理体系，为量化研究提供支持。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-3">
+          <span class="label">Trading & Analysis</span>
+          <h3>深圳市简泰投资咨询有限公司</h3><div class="org" style="font-weight: 800; color: var(--ink);">期货交易员 <span style="font-weight: 500; color: var(--muted);">· 2025.01 — 2025.03</span></div>
+          <ul class="card-list">
+            <li>独立完成大宗商品深度研究报告，盘点 <span class="hl">产业链生态图谱</span> 与价格影响要素。</li>
+            <li>为团队交易决策提供详实的 <span class="hl">行业背景支持与资质判断依据</span>，实盘交易回报率达15%。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 行业研究与AI应用 -->
+    <section class="section container animate-up" id="research-work">
+      <div class="section-heading">
+        <div><div class="eyebrow">03 / Standard Building & Agent Workflow</div>
+          <h2>构建评估标准，沉淀生态资产</h2>
+          <p class="section-intro">深度理解大模型对内容质量的评判逻辑，主导行业生态分析并产出可被团队长期复用的研究与数据标准。</p>
+        </div>
+      </div>
+      <div class="two-grid" style="margin-bottom: 24px;">
+        <article class="experience-card card animate-up delay-1">
+          <span class="label">Quality Evaluation & Ecosystem</span>
+          <h3>沙利文校企合作 | 金融科技行业资讯监测与市场态度分析项目</h3>
+          <ul class="card-list" style="margin-top: 12px;">
+            <li>检索全渠道资讯原文1000+条，建立信息筛查与 <span class="hl">内容质量评估标准</span>。</li>
+            <li>运用AI Agent完成观点提取与态度聚类，产出金融科技 <span class="hl">行业生态图谱</span> 与商业模式洞察，形成可被团队长期复用的研究资产。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-2">
+          <span class="label">Subjective to Objective Metrics</span>
+          <h3>港大联合项目：基于AI大模型的企业ESG分析项目</h3>
+          <ul class="card-list" style="margin-top: 12px;">
+            <li>针对ESG信息披露分散主观的痛点，提取美股财报 MD&A 模块，搭建智能化分析框架。</li>
+            <li>通过提示词工程，将主观性文本转化为 <span class="hl">客观、可核查、可度量的结构化评估标准</span>。</li>
+          </ul>
+        </article>
+      </div>
+      <div class="three-grid">
+        <article class="experience-card card animate-up delay-1">
+          <span class="label">Lab Research Assistant</span>
+          <h3>深圳大学工业物联网大数据人工智能联合研究所</h3><div class="org"><strong>研究助理</strong></div>
+          <ul class="card-list">
+            <li><strong>工业AI应用：</strong>参与光缆生产智能检测优化及传统MS系统 MCP接口开发，打通LLM与企业业务系统的数据交互。</li>
+            <li><strong>量化金融：</strong>构建 LSTM+PPO强化学习投资框架，结合知识蒸馏与专家推理优化多市场组合决策，S&P500等年化收益提升 18%。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-2">
+          <span class="label">Database Construction</span>
+          <h3>大宗商品数据库系统建设</h3><div class="org"><strong>国家重点实验室重点项目立项</strong></div>
+          <ul class="card-list">
+            <li>构建集多源数据采集、智能整合与量化决策于一体的大宗商品综合数据库平台。</li>
+            <li>平台搭载自研指数评估模型与量化计算引擎，输出市场趋势预判与多维度综合评分。</li>
+          </ul>
+        </article>
+        <article class="experience-card card animate-up delay-3">
+          <span class="label">End-to-End Workflow</span>
+          <h3>聚徒科研：基于新闻分析的投资AI Agent 开发</h3>
+          <ul class="card-list" style="margin-top: 12px;">
+            <li>基于 Coze 平台构建覆盖资讯聚合至结论输出的 <span class="hl">端到端 Agent 自动化工作流</span>。</li>
+            <li>通过提示词工程优化情绪倾向判别，提升 Agent 决策输出的可解释性与辅助价值。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 可视化AI实战 (纯视频展示) -->
+    <section class="section container animate-up" id="visual-projects">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">04 / AI Product Design</div>
+          <h2>AI 场景与产品化设计</h2>
+          <p class="section-intro">将繁复的评估标准、分析模型落地为可视化、易交互的产品载体。</p>
+        </div>
+      </div>
+      <div class="project-grid">
+        
+        <!-- 理财APP：3段视频横向滑动 -->
+        <article class="project-card card animate-up delay-1">
+          <div class="project-gallery">
+            <span class="scroll-hint">左右滑动查看全部演示</span>
+            <!-- 自动静音循环播放，适配移动端内联播放 -->
+            <video src="assets/project-ui-1.mp4" autoplay loop muted playsinline controls preload="metadata" onerror="this.style.display='none';"></video>
+            <video src="assets/project-ui-2.mp4" autoplay loop muted playsinline controls preload="metadata" onerror="this.style.display='none';"></video>
+            <video src="assets/project-ui-3.mp4" autoplay loop muted playsinline controls preload="metadata" onerror="this.style.display='none';"></video>
+          </div>
+          <div class="project-body">
+            <div class="project-type">AI Prototyping</div>
+            <h3>掌财喵 ：金融管理助手</h3>
+            <p>以虚拟宠物为媒介，结合区块链与银行底层数据的个人管理工具。通过交互式界面将财产分析、理财建议、账户安全等标准评估结果呈现给用户端。</p>
+          </div>
+        </article>
+
+        <!-- Offer君：1段视频嵌入 + AI向文案重构 -->
+        <article class="project-card card animate-up delay-2">
+          <div class="project-single-video">
+            <!-- 单视频自动播放 -->
+            <video src="assets/project-offer.mp4" autoplay loop muted playsinline controls preload="metadata" onerror="this.style.display='none';"></video>
+          </div>
+          <div class="project-body">
+            <div class="project-type">AI-Native Platform</div>
+            <h3>offer君 求职帮扶平台</h3>
+            <p>打造求职帮扶平台，聚合岗位信息、智能简历辅导与面试模拟。通过 AI 对话与 Agent 工作流，将专业的人才质量评估规则沉淀为产品化的交互体验。</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 竞赛经历：按用户提供的原文呈现 -->
+    <section class="section container animate-up" id="competitions">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">05 / Competitions & Business Outreach</div>
+          <h2>竞赛与外部资源拓展经验</h2>
+        </div>
+      </div>
+      <div class="competition-list">
+        <div class="competition-column">
+          <article class="competition-item">
+            <div class="competition-award">省金</div>
+            <div class="competition-name">“挑战杯”大学生创业计划竞赛</div>
+            <p class="competition-detail">主导商业计划书撰写与市场生态调研，具备扎实的<strong>专家访谈与业务拓展能力</strong>。</p>
+          </article>
+          <article class="competition-item">
+            <div class="competition-award">决赛新锐奖</div>
+            <div class="competition-name">CFA中国未来金融分析师产品设计大赛</div>
+            <p class="competition-detail"><strong>AI-Agent 驱动的养宠金融产品</strong></p>
+          </article>
+        </div>
+        <div class="competition-column">
+          <article class="competition-item">
+            <div class="competition-award">省银</div>
+            <div class="competition-name">中国大学生职业规划大赛</div>
+          </article>
+          <article class="competition-item">
+            <div class="competition-award">省一</div>
+            <div class="competition-name">中国大学生数学建模大赛</div>
+          </article>
+          <article class="competition-item">
+            <div class="competition-award">省二</div>
+            <div class="competition-name">中国大学生数学竞赛</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 论文成果 -->
+    <section class="section container animate-up" id="research">
+      <div class="section-heading">
+        <div><div class="eyebrow">06 / Academic Outputs</div><h2>深度研究成果与写作</h2></div>
+      </div>
+      <div class="paper-grid">
+        <div class="paper-box paper-box-1 animate-up delay-1">
+          <div>
+            <h3>The CEO Health Premium: Obesity Signals and Asset Pricing</h3>
+            <div class="journal">入选 2026 FMA 亚太金融年会和《金融学季刊》论坛</div>
+            <p>基于Gemini视觉大模型对IPO敲钟照片进行高管特征度量，研究健康风险信号与资产定价，展现了使用 AI 技术对非标实体特征进行量化提取与规律总结的研究能力。</p>
+          </div>
+        </div>
+        <div class="paper-box paper-box-2 animate-up delay-2">
+          <div>
+            <h3>A Multi-Expert Switching Algorithm for Online Portfolio Selection</h3>
+            <div class="journal">机器学习与量化金融方向论文</div>
+            <p>面向非平稳市场的量化决策与风险管理问题，提出多专家动态切换算法（MES），融合多种短期绩效建模策略，基于真实数据集验证了规则切换框架的有效性。</p>
+          </div>
+        </div>
+        <div class="paper-box paper-box-3 animate-up delay-3">
+          <div>
+            <h3>When Customers Signal Supply Chain Risk: Supplier Responses Through Relationship-Specific Investment</h3>
+            <div class="journal">准备投递《Production and Operations Management》</div>
+            <p>研究客户供应链风险（SCR）对供应商关系专用性投资（RSI）的影响，发现 SCR 显著促进 RSI，且在客户集中度和客户重要性较高时进一步增强，揭示供应链风险向供应商投资决策的传导机制。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 工作以外（Bento 5宫格布局） -->
+    <section class="section container animate-up" id="beyond">
+      <div class="section-heading">
+        <div><div class="eyebrow">07 / Beyond Work</div><h2>连接内外的多边沟通者</h2></div>
+      </div>
+      <div class="life-grid-5">
+        
+        <div class="life-item life-large animate-up delay-1">
+          <img src="assets/life-1.jpg" alt="生活照片1" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+          <div class="life-placeholder" style="display:none">图片 1<br />assets/life-1.jpg</div>
+          <span class="life-caption">向外部评审与机构讲解商业生态分析与产品逻辑</span>
+        </div>
+        
+        <div class="life-item life-small-1 animate-up delay-2">
+          <img src="assets/life-2.jpg" alt="生活照片2" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+          <div class="life-placeholder" style="display:none">图片 2<br />assets/life-2.jpg</div>
+          <span class="life-caption">竞赛路演：高频应对陌生人沟通与评审答辩</span>
+        </div>
+        
+        <div class="life-item life-small-2 animate-up delay-3">
+          <img src="assets/life-3.jpg" alt="生活照片3" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+          <div class="life-placeholder" style="display:none">图片 3<br />assets/life-3.jpg</div>
+          <span class="life-caption">学院全奖德国暑期交换学习</span>
+        </div>
+        
+        <div class="life-item life-small-3 animate-up delay-2">
+          <img src="assets/life-4.jpg" alt="生活照片4" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+          <div class="life-placeholder" style="display:none">图片 4<br />assets/life-4.jpg</div>
+          <span class="life-caption">三下乡支教/腾讯TVT陪伴大使，回馈社会</span>
+        </div>
+
+        <div class="life-item life-small-4 animate-up delay-3">
+          <img src="assets/life-5.jpg" alt="生活照片5" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+          <div class="life-placeholder" style="display:none">图片 5<br />assets/life-5.jpg</div>
+          <span class="life-caption">多次主持学院校企对接等各类活动</span>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="footer-row">
+      <span>© <span id="year"></span> 张宸桐 · Personal Portfolio</span>
+      <span>Built with HTML, CSS & JavaScript</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      const elements = document.querySelectorAll('.animate-up');
+      elements.forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>
